@@ -39,31 +39,35 @@ public class MP {
             userAgent.openContent(content);
 
             Table table = userAgent.doc.getTable("<table cellspacing=\"0\" cellpadding=\"0\" width=\"80%\" border=\"0\" align=\"center\">");   //get Table component via search query
-            Elements elements,elements2;
+            Elements elements, elements2;
+            Element element1;
             boolean loopCheck = true;
-            int counter = 2;
+            int counter = 4;
             List pdfUrl = new ArrayList();
             List dataPool1 = new ArrayList();
 
             while (loopCheck) {
                 try {
                     System.out.println("\n");
-                    elements = table.getCol(counter); 
+                    for(int count =0; count<5;count++){
+                    System.out.println(table.getRow(count+counter).getChildElements().get(2).innerText());
+                    //element1 = table.getRow(counter).getChildElements().get(1);
+                    }
                     for (Element element : elements) {
                         //dataPool1.add(element.getChildElements().get(1).innerText());  //iterate through & print elements                    
-                    System.out.println(element.innerText());
+                        System.out.println(element.innerText());
                     }
 
-System.out.println("Hi"+counter);
-//dataPool1 = dataPool1.subList(1, dataPool1.size());
+                    System.out.println("Hi" + counter);
+/*
                     System.out.println(dataPool1);
-                    String pdfUrl1 = (String)elements.findFirst("<a href>").getAt("href");
+                    String pdfUrl1 = (String) elements.findFirst("<a href>").getAt("href");
                     //pdfUrl.add((String)elements.findEvery("<a href>").getAt("href"));
                     System.out.println(pdfUrl1);
                     counter++;
                     //Write to Mongo DB
                     dataPool1.clear();
-                    userAgent.openContent(content);
+                    */
                 } catch (Exception ex) {
                     System.err.println(ex);
                     loopCheck = false;
