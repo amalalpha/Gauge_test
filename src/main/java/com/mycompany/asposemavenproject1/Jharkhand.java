@@ -65,7 +65,7 @@ public class Jharkhand {
 
                 } catch (Exception ex) {
                     //System.err.println(ex);
-                    loopCheck = false;
+                    loopCheck = false; // exception thrown when end of loop reached. Starting to terminate.
                 }
 
             }

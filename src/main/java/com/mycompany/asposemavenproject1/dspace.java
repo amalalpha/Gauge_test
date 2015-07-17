@@ -51,24 +51,20 @@ public class dspace {
                     System.out.println("\n");
                     elements = table.getRow(counter);
                     for (Element element : elements) {
-                        //System.out.println("hi  "+element.innerText());
                         dataPool1.add(element.innerText());  //iterate through & print elements                                        
                     }
                     dataPool1 = dataPool1.subList(0, dataPool1.size()-1);
                     System.out.println(dataPool1);
                     nextPage = (String) elements.getChildElements().get(7).findFirst("<a href>").getAt("href");
-                    userAgent.visit("http://dspace.judis.nic.in/");
-                    userAgent.visit(nextPage);
+                    userAgent.visit("http://dspace.judis.nic.in/"); // accessing the website to avoid sesion expired error
+                    userAgent.visit(nextPage); // going to the page with pdf url
                     Table table2 = userAgent.doc.getTable("<table class=miscTable>");
                     Elements elements2 = table2.getCol(0);
                     pdfUrl = (String) elements2.findFirst("<a href>").getAt("href");
                     System.out.println(pdfUrl);
-
                     // write to mongoDB
                     counter = counter + 2;
-                    
                     dataPool1.clear();
-                    //userAgent.openContent(content);
                 } catch (Exception ex) {
                     System.err.println(ex);
                     loopCheck = false;

@@ -49,17 +49,16 @@ public class Karnataka {
                 try {
                     System.out.println("\n");
                     elements = table.getRow(counter);                                               //get row at row index 0.
-                    int count = 0;
                     for (Element element : elements) {
                         dataPool1.add(element.innerText());  //iterate through & print elements                    
                     //
                     }
                     
-                    dataPool1 = dataPool1.subList(1, dataPool1.size());
+                    //dataPool1 = dataPool1.subList(1, dataPool1.size());
                     System.out.println(dataPool1);
-                    nextPage = (String) elements.getChildElements().get(0).findFirst("<a href>").getAt("href");
+                    nextPage = (String) elements.getChildElements().get(0).findFirst("<a href>").getAt("href"); //get the link to the nextpage
                     userAgent.visit(nextPage);
-                     Table table2 = userAgent.doc.getTable("<table cellpadding=\"6\"");
+                     Table table2 = userAgent.doc.getTable("<table cellpadding=\"6\""); // table containg the pdf url
                      Elements elements2 = table2.getCol(0);
                      pdfUrl = (String) elements2.findFirst("<a href>").getAt("href");
                      
@@ -67,7 +66,7 @@ public class Karnataka {
                     counter++;
                     //Write to Mongo DB
                     dataPool1.clear();
-                    userAgent.openContent(content);
+                    //userAgent.openContent(content);
                 } catch (Exception ex) {
                     //System.err.println(ex);
                     loopCheck = false;

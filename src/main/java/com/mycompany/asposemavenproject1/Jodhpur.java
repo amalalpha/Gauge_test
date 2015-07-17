@@ -51,7 +51,7 @@ public class Jodhpur {
                     System.out.println("\n");
                     elements = table.getRow(counter);
                     for (Element element : elements) {
-                        dataPool1.add(element.innerText());  //iterate through & print elements                    
+                        dataPool1.add(element.innerText().replaceAll("&amp;", "&"));  //iterate through & print elements                    
                         //
                     }
 

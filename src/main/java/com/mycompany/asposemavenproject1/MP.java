@@ -49,16 +49,17 @@ public class MP {
             while (loopCheck) {
                 try {
                     System.out.println("\n");
-                    for (count = 0; count < 7; count++) {
-                        loopCheck1 = (String) table.getRow(count + counter).getChildElements().get(2).innerText();
-                        loopCheck2 = (String) table.getRow(count + counter).getChildElements().get(1).innerText();
-                        loopCheck1 = loopCheck1.replaceAll("&amp;", "&");
+                    for (count = 0; count < 7; count++) { // maximum no. of entries in a row in 6 it can as low as 4
+                        loopCheck1 = (String) table.getRow(count + counter).getChildElements().get(2).innerText();// getting the metadata title eg. case no.
+                        loopCheck2 = (String) table.getRow(count + counter).getChildElements().get(1).innerText(); // getting the actual metadata
+                        loopCheck1 = loopCheck1.replaceAll("&amp;", "&"); // checking if both titles and metadata fileds are empty. 
+                        //In some case metadata field can be empty but title field may not be 
                         dataPool1.add(loopCheck1);
                         if ("".equals(loopCheck2) && "".equals(loopCheck1)) {
                             break;
                         }
                     }
-                        elements = table.getRow(counter).getChildElements().get(3).findEach("<a href>");
+                        elements = table.getRow(counter).getChildElements().get(3).findEach("<a href>"); // accessing the 'row' with url(check the html source code)
                         for (Element element : elements) {
                             pdfUrl.add(element.getAt("href"));
                         }

@@ -25,7 +25,7 @@ public class Himachal {
         try {
             UserAgent userAgent = new UserAgent();
             
-            String content = "";
+            String content = ""; // String for storing the html file
             try {
                 BufferedReader in;
                 in = new BufferedReader(new FileReader("/home/vishnu/Desktop/himachal_test.html"));
@@ -36,7 +36,7 @@ public class Himachal {
                 in.close();
             } catch (IOException e) {
             }
-            userAgent.openContent(content);
+            userAgent.openContent(content); // opening html file in userAgent
             
             Table table = userAgent.doc.getTable("<table cellspacing=\"5\" cellpadding=\"5\" width=\"100%\" border=\"1\" align=\"center\">");   //get Table component via search query
             Elements elements;
