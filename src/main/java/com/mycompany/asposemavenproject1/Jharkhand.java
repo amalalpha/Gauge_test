@@ -54,6 +54,7 @@ public class Jharkhand {
                         //
                     }
                     
+                    dataPool1 = dataPool1.subList(0, dataPool1.size()-1);
                     pdfUrl = (String) elements.getChildElements().get(2).findFirst("<a href>").getAt("href");
                     System.out.println(pdfUrl);
                     dataPool1 = dataPool1.subList(1, dataPool1.size());

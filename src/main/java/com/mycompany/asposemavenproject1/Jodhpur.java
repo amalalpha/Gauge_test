@@ -55,6 +55,7 @@ public class Jodhpur {
                         //
                     }
 
+                    dataPool1 = dataPool1.subList(0, dataPool1.size()-1);
                     pdfUrl = (String) elements.getChildElements().get(2).findFirst("<a href>").getAt("href");
                     String pdfUrl1 = pdfUrl.replaceAll("&amp;", "&");
                     System.out.println(pdfUrl1);

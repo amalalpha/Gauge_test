@@ -21,7 +21,7 @@ import java.util.List;
  * @author vishnu
  */
 public class MP {
-
+    
     public static void main(String[] args) {
         try {
             UserAgent userAgent = new UserAgent();
@@ -37,47 +37,49 @@ public class MP {
             } catch (IOException e) {
             }
             userAgent.openContent(content);
-
+            
             Table table = userAgent.doc.getTable("<table cellspacing=\"0\" cellpadding=\"0\" width=\"80%\" border=\"0\" align=\"center\">");   //get Table component via search query
-            Elements elements, elements2;
-            Element element1;
             boolean loopCheck = true;
-            int counter = 4;
+            Elements elements;
+            int counter = 4, count;
+            String loopCheck1, loopCheck2;
             List pdfUrl = new ArrayList();
             List dataPool1 = new ArrayList();
-
+            
             while (loopCheck) {
                 try {
                     System.out.println("\n");
-                    for(int count =0; count<5;count++){
-                    System.out.println(table.getRow(count+counter).getChildElements().get(2).innerText());
-                    //element1 = table.getRow(counter).getChildElements().get(1);
+                    for (count = 0; count < 7; count++) {
+                        loopCheck1 = (String) table.getRow(count + counter).getChildElements().get(2).innerText();
+                        loopCheck2 = (String) table.getRow(count + counter).getChildElements().get(1).innerText();
+                        loopCheck1 = loopCheck1.replaceAll("&amp;", "&");
+                        dataPool1.add(loopCheck1);
+                        if ("".equals(loopCheck2) && "".equals(loopCheck1)) {
+                            break;
+                        }
                     }
-                    for (Element element : elements) {
-                        //dataPool1.add(element.getChildElements().get(1).innerText());  //iterate through & print elements                    
-                        System.out.println(element.innerText());
-                    }
-
-                    System.out.println("Hi" + counter);
-/*
+                        elements = table.getRow(counter).getChildElements().get(3).findEach("<a href>");
+                        for (Element element : elements) {
+                            pdfUrl.add(element.getAt("href"));
+                        }
+                    counter = counter + count + 2;
                     System.out.println(dataPool1);
-                    String pdfUrl1 = (String) elements.findFirst("<a href>").getAt("href");
-                    //pdfUrl.add((String)elements.findEvery("<a href>").getAt("href"));
-                    System.out.println(pdfUrl1);
-                    counter++;
+                    System.out.println(pdfUrl);
+                    
                     //Write to Mongo DB
+                    
                     dataPool1.clear();
-                    */
+                    pdfUrl.clear();
                 } catch (Exception ex) {
-                    System.err.println(ex);
+                    //System.err.println(ex);
                     loopCheck = false;
                 }
-
+                
             }
         } catch (JauntException e) {
             System.err.println(e);
         }
-
+        
     }
-
+    
 }

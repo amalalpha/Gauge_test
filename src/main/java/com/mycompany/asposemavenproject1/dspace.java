@@ -21,15 +21,15 @@ import java.util.List;
  * @author vishnu
  */
 public class dspace {
-
+    
     public static void main(String[] args) {
         try {
             UserAgent userAgent = new UserAgent();
-
+            
             String content = "";
             try {
                 BufferedReader in;
-                in = new BufferedReader(new FileReader("/home/vishnu/Desktop/dspace_delhi1.html"));
+                in = new BufferedReader(new FileReader("/home/vishnu/Desktop/dsapce2.html"));
                 String str;
                 while ((str = in.readLine()) != null) {
                     content += str;
@@ -38,43 +38,47 @@ public class dspace {
             } catch (IOException e) {
             }
             userAgent.openContent(content);
-
+            
             Table table = userAgent.doc.getTable("<table class=miscTable>");   //get Table component via search query
             Elements elements;
             boolean loopCheck = true;
             int counter = 2;
             String pdfUrl, nextPage;
             List dataPool1 = new ArrayList();
-
+            
             while (loopCheck) {
                 try {
                     System.out.println("\n");
                     elements = table.getRow(counter);
                     for (Element element : elements) {
+                        //System.out.println("hi  "+element.innerText());
                         dataPool1.add(element.innerText());  //iterate through & print elements                                        
                     }
+                    dataPool1 = dataPool1.subList(0, dataPool1.size()-1);
                     System.out.println(dataPool1);
                     nextPage = (String) elements.getChildElements().get(7).findFirst("<a href>").getAt("href");
-                    System.out.println(nextPage);
                     userAgent.visit("http://dspace.judis.nic.in/");
                     userAgent.visit(nextPage);
                     Table table2 = userAgent.doc.getTable("<table class=miscTable>");
                     Elements elements2 = table2.getCol(0);
                     pdfUrl = (String) elements2.findFirst("<a href>").getAt("href");
                     System.out.println(pdfUrl);
-                    counter++;
+
                     // write to mongoDB
+                    counter = counter + 2;
+                    
                     dataPool1.clear();
+                    //userAgent.openContent(content);
                 } catch (Exception ex) {
                     System.err.println(ex);
                     loopCheck = false;
                 }
-
+                
             }
         } catch (JauntException e) {
             System.err.println(e);
         }
-
+        
     }
-
+    
 }

@@ -15,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ public class Judis {
             String content = "";
             try {
                 BufferedReader in;
-                in = new BufferedReader(new FileReader("/home/vishnu/Desktop/jammu_test2.html"));
+                in = new BufferedReader(new FileReader("/home/vishnu/Desktop/kerala_judis.html"));
                 String str;
                 while ((str = in.readLine()) != null) {
                     content += str;
@@ -52,9 +53,7 @@ public class Judis {
                     elements = table.getRow(counter);
                     for (Element element : elements) {
                         dataPool1.add(element.innerText());  //iterate through & print elements                    
-                        //
                     }
-
                     pdfUrl = (String) elements.getChildElements().get(3).findFirst("<a href>").getAt("href");
                     System.out.println(pdfUrl);
                     dataPool1 = dataPool1.subList(1, dataPool1.size());
@@ -66,7 +65,7 @@ public class Judis {
                 } catch (Exception ex) {
                     //System.err.println(ex);
                     loopCheck = false;
-                  
+
                 }
 
             }
