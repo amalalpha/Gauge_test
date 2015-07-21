@@ -20,15 +20,17 @@ import java.util.List;
  *
  * @author vishnu
  */
-public class Jharkhand {
+public class IndianKanoon {
+
     public static void main(String[] args) {
+
         try {
             UserAgent userAgent = new UserAgent();
-            
+
             String content = "";
             try {
                 BufferedReader in;
-                in = new BufferedReader(new FileReader("/home/vishnu/Desktop/jharkhand.html"));
+                in = new BufferedReader(new FileReader("/home/vishnu/Desktop/indiankanoon.html"));
                 String str;
                 while ((str = in.readLine()) != null) {
                     content += str;
@@ -37,42 +39,35 @@ public class Jharkhand {
             } catch (IOException e) {
             }
             userAgent.openContent(content);
-            
-            Table table = userAgent.doc.getTable("<table border=\"1\" align=\"center\">");   //get Table component via search query
-            Elements elements;
+            Elements elements = userAgent.doc.findEach("<div class=\"result\">");
             boolean loopCheck = true;
-            int counter = 1,a=1;
-            String pdfUrl;
+            String textUrl;
             List dataPool1 = new ArrayList();
 
             while (loopCheck) {
                 try {
                     System.out.println("\n");
-                    elements = table.getRow(counter);
+                    //elements = table.getRow(counter);
                     for (Element element : elements) {
-                        dataPool1.add(element.innerText());  //iterate through & print elements                    
-                        //
+                        dataPool1.add(element.getChildElements().get(0).innerText());  //iterate through & print elements                    
+                        textUrl = (String) element.getChildElements().get(0).findFirst("<a href>").getAt("href");
+                        System.out.println(textUrl);
+                        System.out.println(dataPool1);
+//String nextPage = (String) element.getChildElements().get(0).findFirst("<a href>").getAt("href");
+                        //userAgent.visit(nextPage);
+                        dataPool1.clear();
                     }
-                    
-                    dataPool1 = dataPool1.subList(a, dataPool1.size()-a);
-                    pdfUrl = (String) elements.getChildElements().get(2).findFirst("<a href>").getAt("href");
-                    System.out.println(pdfUrl);
-                    //dataPool1 = dataPool1.subList(1, dataPool1.size());
-                    System.out.println(dataPool1);
-                    counter++;
-                    // write to mongoDB
-                    dataPool1.clear();
-
+                    loopCheck = false;
                 } catch (Exception ex) {
-                    //System.err.println(ex);
+                    System.err.println(ex);
                     loopCheck = false; // exception thrown when end of loop reached. Starting to terminate.
                 }
 
             }
+
         } catch (JauntException e) {
             System.err.println(e);
         }
-
     }
-    
+
 }

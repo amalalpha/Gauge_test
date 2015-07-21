@@ -30,7 +30,7 @@ public class Judis {
             String content = "";
             try {
                 BufferedReader in;
-                in = new BufferedReader(new FileReader("/home/vishnu/Desktop/kerala_judis.html"));
+                in = new BufferedReader(new FileReader("/home/vishnu/Desktop/judis_andhra.html"));
                 String str;
                 while ((str = in.readLine()) != null) {
                     content += str;

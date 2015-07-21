@@ -42,7 +42,7 @@ public class Lobis {
             Table table = userAgent.doc.getTable("<table width=\"46%\" border=\"1\" align=\"center\">");   //get Table component via search query
             Elements elements;
             boolean loopCheck = true;
-            int counter = 1;
+            int counter = 1,a=1;
             String pdfUrl;
             List dataPool1 = new ArrayList();
 
@@ -54,7 +54,7 @@ public class Lobis {
                         dataPool1.add(element.innerText());  //iterate through & print elements                    
                         //
                     }
-                    dataPool1 = dataPool1.subList(1, dataPool1.size());
+                    dataPool1 = dataPool1.subList(a, dataPool1.size());
                     System.out.println(dataPool1);
                     pdfUrl = (String) elements.getChildElements().get(1).findFirst("<a href>").getAt("href");
                     System.out.println(pdfUrl);
